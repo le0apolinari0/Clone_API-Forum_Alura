@@ -1,4 +1,4 @@
-package br.com.leo.forum.forumalura.modelo
+package br.com.leo.forum.modelo
 
 enum class StatusTopico {
     TOPICO_RESPONDIDO,

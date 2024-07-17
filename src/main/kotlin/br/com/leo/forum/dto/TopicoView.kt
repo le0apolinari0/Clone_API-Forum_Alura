@@ -1,4 +1,4 @@
-package br.com.leo.forum.forumalura.dto
+package br.com.leo.forum.dto
 
 import java.time.LocalDateTime
 

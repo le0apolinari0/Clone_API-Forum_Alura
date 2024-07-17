@@ -1,4 +1,4 @@
-package br.com.leo.forum.forumalura.mapper
+package br.com.leo.forum.mapper
 
 interface Mapper < T, U> {
     fun map(t: T): U

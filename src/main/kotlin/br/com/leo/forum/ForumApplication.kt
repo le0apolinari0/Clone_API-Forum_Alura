@@ -1,11 +1,14 @@
-package br.com.leo.forum.forumalura
+package br.com.leo.forum
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.cache.annotation.EnableCaching
 
 @SpringBootApplication
-class ForumAluraApplication
+@EnableCaching
+class  ForumApplication
 
 fun main(args: Array<String>) {
-	runApplication<ForumAluraApplication>(*args)
+	runApplication< ForumApplication
+			>(*args)
 }

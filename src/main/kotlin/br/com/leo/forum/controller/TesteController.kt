@@ -1,4 +1,4 @@
-package br.com.leo.forum.forumalura
+package br.com.leo.forum.controller
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController
 class TesteController {
     @GetMapping
     fun hello() : String{
-        return "Hello word kandkasn"
+        return "Hello seja Bem vindo !"
     }
 }
