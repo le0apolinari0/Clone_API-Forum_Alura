@@ -12,7 +12,7 @@
 	<artifactId>forum</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>forum Alura</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Projero Desenvolvido com base no forum da Alura Curso</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -49,7 +49,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.jetbrains.kotlin</groupId>
-			<artifactId>kotlin-stdlib</artifactId>
+			<artifactId>kotlin-stdlib-jdk8</artifactId>
 		</dependency>
 
 		<dependency>
@@ -101,8 +101,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
-
+		 <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		 </dependency>
 	</dependencies>
+
 
 	<build>
 		<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>

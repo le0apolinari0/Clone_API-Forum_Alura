@@ -6,3 +6,4 @@ create table curso(
 );
 
 insert into curso values(1, 'Kotlin', 'Programacao');
+

@@ -1,6 +1,7 @@
 package br.com.leo.forum.controller
 import br.com.leo.forum.dto.AtualizarTopicoForm
 import br.com.leo.forum.dto.TopicoForm
+import br.com.leo.forum.dto.TopicoPorCategoriaDeCursoDto
 import br.com.leo.forum.dto.TopicoView
 import br.com.leo.forum.servico.TopicoServico
 import jakarta.validation.Valid
@@ -41,6 +42,11 @@ class TopicoController (private val servico: TopicoServico) {
         fun buscarPorId(@PathVariable id: Long):TopicoView {
             return servico.buscarPorId(id)
         }
+    @GetMapping("/relatorio")
+    fun relatorio(): List<TopicoPorCategoriaDeCursoDto>{
+        return servico.relatorioCurso()
+    }
+
     @PostMapping
     @Transactional
     @CacheEvict(value = ["topicos"], allEntries = true)

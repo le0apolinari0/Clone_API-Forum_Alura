@@ -3,6 +3,7 @@ package br.com.leo.forum.servico
 
 import br.com.leo.forum.dto.AtualizarTopicoForm
 import br.com.leo.forum.dto.TopicoForm
+import br.com.leo.forum.dto.TopicoPorCategoriaDeCursoDto
 import br.com.leo.forum.dto.TopicoView
 import br.com.leo.forum.exception.NotFoundException
 import br.com.leo.forum.mapper.TopicoFormMapper
@@ -57,5 +58,9 @@ class TopicoServico (
 
     fun deletar(id: Long) {
         repository.deleteById(id)
+    }
+
+    fun relatorioCurso(): List<TopicoPorCategoriaDeCursoDto> {
+        return repository.relatotio()
     }
 }
