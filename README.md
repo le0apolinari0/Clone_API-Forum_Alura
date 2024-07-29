@@ -26,13 +26,15 @@
   <img src="https://img.shields.io/badge/Kotlin-6959CD?style=for-the-badge&logo=Kotlin&logoColor=black">
   <img src="https://img.shields.io/badge/Spring Boot-239120?&style=for-the-badge&logo=Spring-Boot&logoColor=black">
   <img src="https://img.shields.io/badge/mysql-0000FF?style=for-the-badge&logo=mysql&logoColor=black">
+  <img src="https://img.shields.io/badge/JWT-00BFFF?style=for-the-badge&logo=jwt.io&logoColor=black">
   <img src="https://img.shields.io/badge/Flyway-DCDCDC?style=for-the-badge&logo=Flyway&logoColor=black">
   <p><img src="https://img.shields.io/badge/Git-FF3300?style=for-the-badge&logo=Git&logoColor=black">
   <img src="https://img.shields.io/badge/Github-808080?style=for-the-badge&logo=Github&logoColor=black">
-  <img src="https://img.shields.io/badge/swagger-00FF00?style=for-the-badge&logo=swagger&logoColor=black">
+  <img src="https://img.shields.io/badge/SoapUI-FFFF00?style=for-the-badge&logo=soapui&logoColor=black">
   <img src="https://img.shields.io/badge/insomnia-9900FF?style=for-the-badge&logo=insomnia&logoColor=black">
   </p>
   
+
   ## Fases da Api
 </div>
 <p align="right , float: right">
