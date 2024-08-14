@@ -1,19 +1,20 @@
 package br.com.leo.forum.mapper
 
 
+import br.com.leo.forum.dto.TopicoView
 import br.com.leo.forum.modelo.Topico
 import org.springframework.stereotype.Component
 
 @Component
-class TopicoViewMapper: Mapper<Topico, br.com.leo.forum.dto.TopicoView>{
-    override fun map(t: Topico): br.com.leo.forum.dto.TopicoView {
-       return br.com.leo.forum.dto.TopicoView(
+class TopicoViewMapper: Mapper<Topico,TopicoView>{
+    override fun map(t: Topico):TopicoView {
+       return TopicoView(
            id = t.id,
            titulo = t.titulo,
            mensagem = t.mensagem,
-           dataCriacao = t.dataCriacao
-
-
+           dataCriacao = t.dataCriacao,
+           status = t.status,
+           dataAlteracao = t.dataAlteracao
        )
 
     }

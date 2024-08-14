@@ -1,4 +1,4 @@
-package br.com.leo.forum.servico
+package br.com.leo.forum.service
 
 import br.com.leo.forum.modelo.Usuario
 import org.springframework.security.core.userdetails.UserDetails

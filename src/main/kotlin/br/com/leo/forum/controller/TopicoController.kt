@@ -1,13 +1,7 @@
 package br.com.leo.forum.controller
-import br.com.leo.forum.dto.AtualizarTopicoForm
-import br.com.leo.forum.dto.TopicoForm
-import br.com.leo.forum.dto.TopicoPorCategoriaDeCursoDto
-import br.com.leo.forum.dto.TopicoView
-import br.com.leo.forum.servico.TopicoServico
+import br.com.leo.forum.dto.*
+import br.com.leo.forum.service.TopicoService
 import jakarta.validation.Valid
-import org.springframework.cache.annotation.CacheEvict
-import org.springframework.cache.annotation.Cacheable
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
@@ -25,49 +19,49 @@ import org.springframework.web.bind.annotation.RequestPart
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.util.UriComponentsBuilder
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
+import org.springframework.data.domain.Page
 
 
 @RestController
 @RequestMapping("/topicos")
-class TopicoController (private val servico: TopicoServico) {
+@SecurityRequirement(name = "bearerAuth")
+class TopicoController (private val service: TopicoService) {
 
     @GetMapping
-    @Cacheable("topicos")
      fun listar(@RequestPart(required = false) nomeCurso : String?,
             @PageableDefault(size = 10, sort = ["dataCriacao"], direction = Sort.Direction.DESC) paginacao: Pageable
-    ): Page<TopicoView>{
-        return servico.listar(nomeCurso,paginacao)
+    ): Page<TopicoView> {
+        return service.listar(nomeCurso, paginacao)
     }
+
         @GetMapping("/{id}")
-        fun buscarPorId(@PathVariable id: Long):TopicoView {
-            return servico.buscarPorId(id)
-        }
+        fun buscarPorId(@PathVariable id: Long)= service.buscarPorId(id)
+
     @GetMapping("/relatorio")
-    fun relatorio(): List<TopicoPorCategoriaDeCursoDto>{
-        return servico.relatorioCurso()
+    fun relatorio(): List<TopicoPorCategoriaDeCurso>{
+        return service.relatorioCurso()
     }
 
     @PostMapping
     @Transactional
-    @CacheEvict(value = ["topicos"], allEntries = true)
      fun cadastrar(@RequestBody @Valid form:TopicoForm,
-                   uriBuilder: UriComponentsBuilder): ResponseEntity<TopicoView>{
-        val topicoView = servico.cadastrar(form)
+                   uriBuilder: UriComponentsBuilder):
+            ResponseEntity<TopicoView>{
+        val topicoView = service.cadastrar(form)
         val uri = uriBuilder.path("/topicos/${topicoView.id}").build().toUri()
         return ResponseEntity.created(uri).body(topicoView)
     }
     @PutMapping
     @Transactional
-    @CacheEvict(value = ["topicos"], allEntries = true)
      fun  atualizar(@RequestBody @Valid form: AtualizarTopicoForm): ResponseEntity<TopicoView>{
-        val topicoView = servico.atualizar(form)
-        return return ResponseEntity.ok(topicoView)
+        val topicoView = service.atualizar(form)
+         return ResponseEntity.ok(topicoView)
     }
     @Transactional
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @CacheEvict(value = ["topicos"], allEntries = true)
      fun deletar(@PathVariable id: Long){
-       servico.deletar(id)
+       service.deletar(id)
      }
 }

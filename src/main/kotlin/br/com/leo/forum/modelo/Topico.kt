@@ -1,6 +1,8 @@
 package br.com.leo.forum.modelo
 
 import jakarta.persistence.*
+import java.io.Serializable
+import java.time.LocalDate
 import java.time.LocalDateTime
 @Entity
 data class Topico(
@@ -16,7 +18,8 @@ data class Topico(
     @Enumerated(value = EnumType.STRING)
     val status: StatusTopico = StatusTopico.TOPICO_ENCERRADO,
     @OneToMany (mappedBy = "topico")
-    val respostas: List<Resposta> = ArrayList()
+    val respostas: List<Resposta> = ArrayList(),
+    val dataAlteracao: LocalDate? = null
+) : Serializable
 
 
-)

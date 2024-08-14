@@ -1,4 +1,4 @@
-package br.com.leo.forum.servico
+package br.com.leo.forum.service
 
 
 
@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class UsuarioServico (
+class UsuarioService (
     private val repository: UsuarioRepository): UserDetailsService {
 
     fun  buscarPorId(id: Long): Usuario {
-        return repository.getReferenceById(id)
+        return repository.getOne(id)
     }
-    override fun loadUserByUsername(username: String?): UserDetails {
+     override fun loadUserByUsername(username: String?): UserDetails {
         val usuario = repository.findByEmail(username) ?: throw RuntimeException()
         return UserDetail(usuario)
     }

@@ -1,6 +1,6 @@
 package br.com.leo.forum.dto
 
-data class TopicoPorCategoriaDeCursoDto (
+data class TopicoPorCategoriaDeCurso (
     val categoriaDeCurso: String,
     val quantidadeCurso: Long
 )

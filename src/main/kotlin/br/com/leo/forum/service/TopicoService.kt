@@ -1,21 +1,19 @@
-package br.com.leo.forum.servico
+package br.com.leo.forum.service
 
 
-import br.com.leo.forum.dto.AtualizarTopicoForm
-import br.com.leo.forum.dto.TopicoForm
-import br.com.leo.forum.dto.TopicoPorCategoriaDeCursoDto
-import br.com.leo.forum.dto.TopicoView
+import br.com.leo.forum.dto.*
 import br.com.leo.forum.exception.NotFoundException
 import br.com.leo.forum.mapper.TopicoFormMapper
 import br.com.leo.forum.mapper.TopicoViewMapper
 import br.com.leo.forum.repository.TopicoRepository
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import java.util.stream.Collectors
 
 @Service
-class TopicoServico (
+class TopicoService (
     private val repository: TopicoRepository,
     private val topicoViewMapper: TopicoViewMapper,
     private val topicoFormMapper: TopicoFormMapper,
@@ -23,16 +21,17 @@ class TopicoServico (
 
 ){
 
-
+    @Cacheable(cacheNames = ["Topicos"], key = "#root.method.name")
     fun listar(nomeCurso: String?,
-               paginacao:Pageable): Page<TopicoView>{
-        val topicos = if (nomeCurso== null){
-            repository.findAll(paginacao)
-        } else{
-            repository.findByCursoNome(nomeCurso,paginacao)
+               paginacao:Pageable
+    ): Page<TopicoView>{
+        val topicos = nomeCurso?.let {
+            repository.findByCursoNome(nomeCurso, paginacao)
+        } ?: repository.findAll(paginacao)
+
+        return topicos.map { top ->
+            topicoViewMapper.map(top)
         }
-     return topicos.map {
-         top -> topicoViewMapper.map(top) }
     }
 
     fun buscarPorId(id: Long): TopicoView {
@@ -40,14 +39,14 @@ class TopicoServico (
             .orElseThrow{NotFoundException(notFoundMensagem) }
         return topicoViewMapper.map(topico )
      }
-
+    @CacheEvict(cacheNames = ["Topicos"], allEntries = true)
     fun cadastrar(form: TopicoForm): TopicoView {
         val topico = topicoFormMapper.map(form)
         repository.save(topico)
         return topicoViewMapper.map(topico)
 
     }
-
+    @CacheEvict(cacheNames = ["Topicos"], allEntries = true)
     fun atualizar(form:AtualizarTopicoForm):TopicoView {
         var topico = repository.findById(form.id)
             .orElseThrow{NotFoundException(notFoundMensagem) }
@@ -56,11 +55,12 @@ class TopicoServico (
         return topicoViewMapper.map(topico)
     }
 
+    @CacheEvict(cacheNames = ["Topicos"], allEntries = true)
     fun deletar(id: Long) {
         repository.deleteById(id)
     }
 
-    fun relatorioCurso(): List<TopicoPorCategoriaDeCursoDto> {
-        return repository.relatotio()
+    fun relatorioCurso(): List<TopicoPorCategoriaDeCurso> {
+        return repository.relatorio()
     }
 }
